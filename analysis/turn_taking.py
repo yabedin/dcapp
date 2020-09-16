@@ -94,10 +94,3 @@ class TurnTakingIndividual:
         plot_url = base64.b64encode(img.getvalue()).decode()
 
         return plot_url
-        
-        # img = io.BytesIO()
-        # buf = io.BytesIO()
-        # plt.savefig(buf, format='png')
-        # buf.seek(0)
-        # imgplt = plt.imshow(plt.imread(buf))
-        # # plt.show()

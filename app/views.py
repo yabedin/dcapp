@@ -11,7 +11,7 @@ import base64
 
 # Import my files 
 from preprocessing import convert_to_csv, get_dr_speech
-from analysis import lr_model, turn_taking
+from analysis import lr_model, turn_taking, word_cloud
 
 @app.route("/")
 def index():
@@ -43,7 +43,7 @@ def getjson():
 
         # Check if data is in correct format 
         if convert_to_csv.convert_to_csv(data, filename_full) == None:
-            res = make_response(jsonify({"Message:":"Please send a JSON file from IBM Watson's STT API."}), 400)
+            res = make_response(jsonify({"Message:": "Please send a JSON file from IBM Watson's STT API."}), 400)
             return res
 
         # Executes if JSON data is as expected 
@@ -102,11 +102,14 @@ def getjson():
 def report():
 
     # Generate turn taking chart 
-    test = turn_taking.TurnTakingIndividual(filename_full + '.csv')
-    plot_url = test.get_individual_turn_lengths()
+    chart = turn_taking.TurnTakingIndividual(filename_full + '.csv')
+    plot_url = chart.get_individual_turn_lengths()
     model_plot = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(plot_url))
 
     # Generate word cloud 
-    
+    cloud_url = word_cloud.generate_wordcloud(filename_dr + '.csv', 0)
+    model_cloud = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(cloud_url))
 
-    return render_template('report.html', classification=classification, model_plot=model_plot)
+    # Add in SpaCy analysis
+
+    return render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud)
