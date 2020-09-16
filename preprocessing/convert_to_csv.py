@@ -28,7 +28,7 @@ def convert_to_csv(received_data, filename):
     try:
         received_data['results']
 
-        new_csv_file = "" + filename +".csv"
+        new_csv_file = filename + ".csv"
 
         with open(new_csv_file, 'w', newline='') as f:
             fieldnames = ['WORD', 'FROM', 'TO', 'SPEAKER']  # Columm names for CSV data 

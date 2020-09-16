@@ -411,6 +411,7 @@ def test_logistic_regression(test_x, test_y, freqs, theta):
     return accuracy
 
 trainingdata_location = '../dcapp/trainingdata/'
+
 all_negative = build_datasets([trainingdata_location + 'dc2-stt-l.csv', trainingdata_location + 'dc4-stt-l.csv', trainingdata_location + 'dc5-stt-l.csv'])
 all_positive = build_datasets([trainingdata_location + 'dc1-stt-l.csv', trainingdata_location + 'dc3-stt-l.csv'])
 
@@ -440,8 +441,8 @@ Y = train_y
 
 # Apply gradient descent
 J, theta = gradientDescent(X, Y, np.zeros((3, 1)), 1e-9, 1500)
-print(f"The cost after training is {J:.8f}.")
-print(f"The resulting vector of weights is {[round(t, 8) for t in np.squeeze(theta)]}")
+# print(f"The cost after training is {J:.8f}.")
+# print(f"The resulting vector of weights is {[round(t, 8) for t in np.squeeze(theta)]}")
 
 tmp_accuracy = test_logistic_regression(test_x, test_y, freqs, theta)
-print(f"Logistic regression model's accuracy = {tmp_accuracy:.4f}")
+# print(f"Logistic regression model's accuracy = {tmp_accuracy:.4f}")

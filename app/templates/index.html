@@ -7,7 +7,19 @@
 <div class="container">
     <div class="row m-5">
         <div class="col">
-            <h1>Awaiting Request...</h1>
+            <h1>Send POST request</h1>
+            <p>Once POST request sent by audio software and a response is received, click on the button below to receive a full conversation analysis.</p>
+
+            <form action="/report">
+                <button class="btn btn-primary" type="submit">See analysis</button>
+            </form>
+            
+            {% if classification is defined %}
+            <h2>Classification: {{ classification }}</h2>
+            {% else %}
+
+            {% endif %}
+
         </div>
     </div>
 </div>

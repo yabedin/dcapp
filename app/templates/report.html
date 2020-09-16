@@ -1,0 +1,32 @@
+{% extends "templates/template.html" %}
+
+{% block title %} Difficult Conversations scorer {% endblock  %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row m-5">
+        <div class="col">
+
+            {% if classification is defined %}
+            <h2>Classification: </h2>
+                <p> {{ classification }} </p>
+            {% else %}
+            {% endif %}
+
+            <h2> Turn taking chart </h2>
+            
+            {{ model_plot }}
+
+            <p>This chart is comparing the length that the patient and doctor spoke for during each of their turn in their conversation.</p>
+
+            <h2> Word Cloud </h2>
+
+            {{ word_cloud }}
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

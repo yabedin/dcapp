@@ -1,15 +1,17 @@
 from app import app
-from flask import render_template, request, make_response, jsonify
+from flask import render_template, request, make_response, jsonify, Markup
 import json
 import uuid
 import csv
 import nltk
 from nltk.corpus import stopwords
 import string
+import io
+import base64
 
 # Import my files 
 from preprocessing import convert_to_csv, get_dr_speech
-from analysis import lr_model
+from analysis import lr_model, turn_taking
 
 @app.route("/")
 def index():
@@ -32,6 +34,10 @@ def getjson():
         
         # Generate unique id for CSV filename
         unique_id = str(uuid.uuid4())[:5] 
+
+        global filename_full
+        global filename_dr
+
         filename_full = unique_id + "_all_speech"
         filename_dr = unique_id + "_dr_speech"
 
@@ -67,16 +73,14 @@ def getjson():
             freqs = lr_model.freqs
             theta = lr_model.theta
 
+            global classification
+
             y_hat = lr_model.predict_conversation(speech_list_for_model, freqs, theta)    
 
             if y_hat > 0.5:
                 classification = 'Conversation is good'
             else: 
                 classification = 'Conversation needs improving...'
-
-            
-            # Turn taking analysis 
-            
 
             # Need to return report eventually....         
             response = {
@@ -86,6 +90,7 @@ def getjson():
             }
 
             res = make_response(jsonify(response), 200)
+            
             return res
 
     # If no JSON sent
@@ -93,5 +98,15 @@ def getjson():
         res = make_response(jsonify({"Message:":"Please send a JSON file only."}), 400)
         return res
 
+@app.route("/report")
+def report():
 
+    # Generate turn taking chart 
+    test = turn_taking.TurnTakingIndividual(filename_full + '.csv')
+    plot_url = test.get_individual_turn_lengths()
+    model_plot = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(plot_url))
 
+    # Generate word cloud 
+    
+
+    return render_template('report.html', classification=classification, model_plot=model_plot)
