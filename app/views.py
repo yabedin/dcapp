@@ -108,10 +108,12 @@ def report():
     # Generate turn taking chart 
     chart = turn_taking.TurnTakingIndividual(filename_full + '.csv')
     plot_url = chart.get_individual_turn_lengths()
+    global model_plot
     model_plot = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(plot_url))
 
     # Generate word cloud 
     cloud_url = word_cloud.generate_wordcloud(filename_dr + '.csv', dr_speaker_label)
+    global model_cloud
     model_cloud = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(cloud_url))
 
     # spaCy analysis
@@ -124,22 +126,24 @@ def report():
     fullstr = spacy_analysis.convert_list_to_str(openedcsv)
     doc = nlp(fullstr)
 
+    global specific_words
     specific_words = []
     for match_id, start, end in matcher(doc):
         specific_words.append(doc[start: end])    
     
+    global pauses_num
     pauses_num = openedcsv.count('%HESITATION') # Count number of pauses said by doctor
 
     return render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud, specific_words=specific_words, pauses_num=pauses_num)
 
 @app.route("/pdf")
 def get_pdf():
-    rendered = render_template('report.html')
+    rendered = render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud, specific_words=specific_words, pauses_num=pauses_num)
 
     pdf = pdfkit.from_string(rendered, False)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=convoreport.pdf'
 
     return response

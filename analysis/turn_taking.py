@@ -74,8 +74,8 @@ class TurnTakingIndividual:
         # Plot results 
         plt.style.use('seaborn-deep')
 
-        plt.bar(range(len(self.patient_turn_lengths)), list(self.patient_turn_lengths.values()), label='Patient', width=0.8)
-        plt.bar(range(len(self.doc_turn_lengths)), list(self.doc_turn_lengths.values()), label='Doctor', width=0.4)
+        plt.bar(range(len(self.patient_turn_lengths)), list(self.patient_turn_lengths.values()), label='Doctor', width=0.8)
+        plt.bar(range(len(self.doc_turn_lengths)), list(self.doc_turn_lengths.values()), label='Patient', width=0.4)
 
         plt.xticks(range(len(self.doc_turn_lengths)), list(self.doc_turn_lengths.keys()))
 
