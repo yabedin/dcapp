@@ -52,6 +52,7 @@ def getjson():
             convert_to_csv.convert_to_csv(data, filename_full)
 
             # Get dr speech 
+            global dr_speaker_label
             dr_speaker_label = data["dr_speaker_label"]
             dr_speech_list = get_dr_speech.get_dr_speech(data, dr_speaker_label)
             get_dr_speech.write_csv(filename_dr, dr_speech_list)
@@ -80,7 +81,7 @@ def getjson():
             if y_hat > 0.5:
                 classification = 'Conversation is good'
             else: 
-                classification = 'Conversation needs improving...'
+                classification = 'Conversation needs improving'
 
             # Need to return report eventually....         
             response = {
@@ -107,9 +108,10 @@ def report():
     model_plot = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(plot_url))
 
     # Generate word cloud 
-    cloud_url = word_cloud.generate_wordcloud(filename_dr + '.csv', 0)
+    cloud_url = word_cloud.generate_wordcloud(filename_dr + '.csv', dr_speaker_label)
     model_cloud = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(cloud_url))
 
     # Add in SpaCy analysis
+
 
     return render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud)

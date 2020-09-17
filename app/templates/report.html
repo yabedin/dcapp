@@ -8,11 +8,8 @@
     <div class="row m-5">
         <div class="col">
 
-            {% if classification is defined %}
             <h2>Classification: </h2>
-                <p> {{ classification }} </p>
-            {% else %}
-            {% endif %}
+            <p><em> {{ classification }} </em></p>
 
             <h2> Turn taking chart </h2>
             
@@ -24,7 +21,9 @@
 
             {{ model_cloud }}
 
-            <p>This diagram shows the most commonly used words by the doctor</p>
+            <p>This diagram shows the most commonly used words in the conversation</p>
+
+            <h2>Checking for Introductions</h2>
 
         </div>
     </div>
