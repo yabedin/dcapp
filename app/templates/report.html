@@ -23,7 +23,26 @@
 
             <p>This diagram shows the most commonly used words in the conversation</p>
 
-            <h2>Checking for Introductions</h2>
+            <h2>Checking for Phrases</h2>
+
+            <p>Analysis here looks for specific phrases used in the conversation by the doctor.</p>
+
+            {% for word in specific_words %}
+
+            <ul>
+                <li>
+                    {{ word }}
+                </li>
+            </ul>
+
+            {% endfor %}
+
+            <h3>Number of pauses by doctor: </h3>
+            <p> {{ pauses_num }} </p>
+
+            <form action="/pdf">
+                <button class="btn btn-primary" type="submit">Generate PDF report</button>
+            </form>
 
         </div>
     </div>

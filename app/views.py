@@ -8,10 +8,13 @@ from nltk.corpus import stopwords
 import string
 import io
 import base64
+import spacy
+from spacy.matcher import Matcher 
+import pdfkit
 
 # Import my files 
 from preprocessing import convert_to_csv, get_dr_speech
-from analysis import lr_model, turn_taking, word_cloud
+from analysis import lr_model, turn_taking, word_cloud, spacy_analysis
 
 @app.route("/")
 def index():
@@ -111,7 +114,32 @@ def report():
     cloud_url = word_cloud.generate_wordcloud(filename_dr + '.csv', dr_speaker_label)
     model_cloud = Markup('<img src="data:image/png;base64,{}" width: 360px; height: 288px>'.format(cloud_url))
 
-    # Add in SpaCy analysis
+    # spaCy analysis
+    nlp = spacy.load('en_core_web_sm') 
 
+    matcher = Matcher(nlp.vocab, validate=True) # Instantiate matcher object
+    matcher.add('INTRO_PATTERN', None, spacy_analysis.intro_pattern1, spacy_analysis.intro_pattern2, spacy_analysis.intro_pattern3, spacy_analysis.intro_pattern4, spacy_analysis.intro_pattern5, spacy_analysis.intro_pattern6, spacy_analysis.intro_pattern7, spacy_analysis.intro_pattern8, spacy_analysis.intro_pattern9, spacy_analysis.intro_pattern10, spacy_analysis.intro_pattern11)
 
-    return render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud)
+    openedcsv = spacy_analysis.open_dr_words_csv(filename_dr + '.csv')
+    fullstr = spacy_analysis.convert_list_to_str(openedcsv)
+    doc = nlp(fullstr)
+
+    specific_words = []
+    for match_id, start, end in matcher(doc):
+        specific_words.append(doc[start: end])    
+    
+    pauses_num = openedcsv.count('%HESITATION') # Count number of pauses said by doctor
+
+    return render_template('report.html', classification=classification, model_plot=model_plot, model_cloud=model_cloud, specific_words=specific_words, pauses_num=pauses_num)
+
+@app.route("/pdf")
+def get_pdf():
+    rendered = render_template('report.html')
+
+    pdf = pdfkit.from_string(rendered, False)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=output.pdf'
+
+    return response

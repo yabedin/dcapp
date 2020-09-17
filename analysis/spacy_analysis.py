@@ -5,6 +5,7 @@ from spacy import displacy
 import pandas as pd 
 import json
 import csv
+from collections import Counter
 
 # Open CSV 
 def open_dr_words_csv(filepath):
@@ -92,7 +93,7 @@ intro_pattern7 = [
                     {'LOWER': 'talk'}
                 ]
 
-intro_pattern7 = [
+intro_pattern8 = [
                     {'LOWER': "I'm"},
                     {'LOWER': 'just'},
                     {'LOWER': 'wondering'},
@@ -103,18 +104,52 @@ intro_pattern7 = [
                     {'LOWER': 'discuss'}
                 ]
 
-# Matcher - match expressions related to introduction i.e. 'setting'
-nlp = spacy.load('en_core_web_sm')
 
-# Instantiate matcher object 
-matcher = Matcher(nlp.vocab, validate=True)
-matcher.add('INTRO_PATTERN', None, intro_pattern1, intro_pattern2, intro_pattern3, intro_pattern4, intro_pattern5)
+intro_pattern9 = [
+                    {'LOWER': "I"},
+                    {'LOWER': 'just'},
+                    {'LOWER': 'need'},
+                    {'LOWER': 'to'},
+                    {'LOWER': 'double'},
+                    {'LOWER': 'check'}
+                ]
 
-test = open_dr_words_csv('../dcapp/75d88_dr_speech.csv')
-fullstr = convert_list_to_str(test)
-# print(fullstr)
-doc = nlp(fullstr)
-# print(doc)
+intro_pattern10 = [
+                    {'LOWER': "i"},
+                    {'LOWER': 'wanted'},
+                    {'LOWER': 'to'},
+                    {'LOWER': 'speak'},
+                    {'LOWER': 'with'},
+                    {'LOWER': 'you'}
+                ]
 
-for match_id, start, end in matcher(doc):
-    print(doc[start-2: end+2])
+
+intro_pattern11 = [
+                    {'LOWER': "how"},
+                    {'LOWER': 'are'},
+                    {'LOWER': 'you'},
+                    {'LOWER': 'feeling'},
+                    {'LOWER': 'now'}
+                ]
+
+# # Matcher - match expressions related to introduction i.e. 'setting'
+# nlp = spacy.load('en_core_web_sm')
+# print("nlp is ", nlp)
+
+# # Instantiate matcher object 
+# matcher = Matcher(nlp.vocab, validate=True)
+# matcher.add('INTRO_PATTERN', None, intro_pattern1, intro_pattern2, intro_pattern3, intro_pattern4, intro_pattern5)
+
+# test = open_dr_words_csv('../dcapp/f7444_dr_speech.csv')
+# fullstr = convert_list_to_str(test)
+
+# print(test.count('%HESITATION'))
+# count = Counter(test)
+# print(count)
+
+
+# doc = nlp(fullstr)
+# # print(doc)
+
+# for match_id, start, end in matcher(doc):
+#     print(doc[start-2: end+2])
