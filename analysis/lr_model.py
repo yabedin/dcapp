@@ -302,7 +302,6 @@ def sigmoid(a):
     return h
 
 # To train the model: stack the features for all training examples into a matrix X. Call gradientDescent
-# From coursera
 def gradientDescent(x, y, theta, alpha, num_iters):
     '''
     Input:
@@ -314,7 +313,6 @@ def gradientDescent(x, y, theta, alpha, num_iters):
     Output:
         J: the final cost
         theta: your final weight vector
-    Hint: you might want to print the cost to make sure that it is going down.
     '''
 
     # get 'm', the number of rows in matrix x
