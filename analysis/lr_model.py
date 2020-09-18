@@ -212,7 +212,7 @@ def plot_word_count_data(word_count_data):
     DESCRIPTION
     -------------
     Plots a scatter graph of the words according to where they are on the line,
-    either on the 'positive' side or 'negative' side. ?? is this right 
+    either on the 'positive' side or 'negative' side. 
 
     PARAMETERS
     -------------
@@ -224,7 +224,6 @@ def plot_word_count_data(word_count_data):
     None 
     """
 
-    # Code from coursera 
     fig, ax = plt.subplots(figsize = (8, 8))
     
     # convert positive raw counts to logarithmic scale. we add 1 to avoid log(0)
