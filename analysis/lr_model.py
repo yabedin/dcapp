@@ -252,10 +252,9 @@ def feature_extraction(words, freqs):
     '''
     DESCRIPTION
     -------------
-    Extracting features - code from coursera.
-    Given a sentence, function extracts two features and stores them in a matrix:
-    1. The first feature is the number of positive words in a sentence
-    2. The second feature is the number of negative words in a sentence.
+    Given a list of words, the function extracts two features and stores them in a matrix:
+    1. The first feature is the number of positive words in the list.
+    2. The second feature is the number of negative words in the list.
 
     PARAMETERS
     -------------
