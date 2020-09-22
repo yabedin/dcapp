@@ -304,17 +304,31 @@ def sigmoid(a):
 # To train the model: stack the features for all training examples into a matrix X. Call gradientDescent
 def gradientDescent(x, y, theta, alpha, num_iters):
     '''
-    Input:
-        x: matrix of features which is (m,n+1)
-        y: corresponding labels of the input matrix x, dimensions (m,1)
-        theta: weight vector of dimension (n+1,1)
-        alpha: learning rate
-        num_iters: number of iterations you want to train your model for
-    Output:
-        J: the final cost
-        theta: your final weight vector
-    '''
+    DESCRIPTION
+    -------------
+    Outputs theta, the final weight vector. 
 
+    PARAMETERS
+    -------------
+    x: matrix
+        Matrix of features which is (m,n+1) 
+    y: vector
+        Corresponding labels of the input matrix x, dimensions (m,1)
+    theta: vector 
+        Weight vector of dimension (n+1,1)
+    alpha: float
+        Specifies the learning rate
+    num_iters: int 
+        The number of iterations you want to train your model for
+
+    RETURNS
+    -------------
+    J: float
+        The final cost
+    theta: vector 
+        Final weight vector
+
+    '''
     # get 'm', the number of rows in matrix x
     m = x.shape[0]     
     for i in range(0, num_iters):
