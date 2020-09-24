@@ -369,7 +369,7 @@ def predict_conversation(words, freqs, theta):
     RETURN
     -------------
     y_pred: float 
-        The probability of a tweet being positive or negative
+        The probability of the input (list of words) being positive or negative
     '''
     
     # extract the features of the words and store it into x
