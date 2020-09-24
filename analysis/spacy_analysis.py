@@ -132,13 +132,13 @@ intro_pattern11 = [
                     {'LOWER': 'now'}
                 ]
 
-# # Matcher - match expressions related to introduction i.e. 'setting'
-# nlp = spacy.load('en_core_web_sm')
-# print("nlp is ", nlp)
+# Matcher - match expressions related to introduction i.e. 'setting'
+nlp = spacy.load('en_core_web_sm')
+print("nlp is ", nlp)
 
-# # Instantiate matcher object 
-# matcher = Matcher(nlp.vocab, validate=True)
-# matcher.add('INTRO_PATTERN', None, intro_pattern1, intro_pattern2, intro_pattern3, intro_pattern4, intro_pattern5)
+# Instantiate matcher object 
+matcher = Matcher(nlp.vocab, validate=True)
+matcher.add('INTRO_PATTERN', None, intro_pattern1, intro_pattern2, intro_pattern3, intro_pattern4, intro_pattern5)
 
 # test = open_dr_words_csv('../dcapp/f7444_dr_speech.csv')
 # fullstr = convert_list_to_str(test)

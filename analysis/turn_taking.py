@@ -36,8 +36,6 @@ class TurnTakingIndividual:
     
         return self.all_list
 
-
-# This works for the dc1-stt.csv dataset 
     def get_individual_turn_lengths(self):
         doc_turn = 0 
         self.doc_turn_lengths = {}
@@ -69,8 +67,6 @@ class TurnTakingIndividual:
                 doc_turn_sum += (float(item[2]) - float(item[1]))
                 self.doc_turn_lengths[doc_turn] = doc_turn_sum
             
-        # print(self.patient_turn_lengths, self.doc_turn_lengths)    
-
         # Plot results 
         plt.style.use('seaborn-deep')
 
@@ -94,3 +90,7 @@ class TurnTakingIndividual:
         plot_url = base64.b64encode(img.getvalue()).decode()
 
         return plot_url
+
+
+
+        

@@ -120,7 +120,9 @@ def report():
     nlp = spacy.load('en_core_web_sm') 
 
     matcher = Matcher(nlp.vocab, validate=True) # Instantiate matcher object
-    matcher.add('INTRO_PATTERN', None, spacy_analysis.intro_pattern1, spacy_analysis.intro_pattern2, spacy_analysis.intro_pattern3, spacy_analysis.intro_pattern4, spacy_analysis.intro_pattern5, spacy_analysis.intro_pattern6, spacy_analysis.intro_pattern7, spacy_analysis.intro_pattern8, spacy_analysis.intro_pattern9, spacy_analysis.intro_pattern10, spacy_analysis.intro_pattern11)
+    matcher.add('INTRO_PATTERN', None, spacy_analysis.intro_pattern1, spacy_analysis.intro_pattern2, spacy_analysis.intro_pattern3, spacy_analysis.intro_pattern4, 
+                                        spacy_analysis.intro_pattern5, spacy_analysis.intro_pattern6, spacy_analysis.intro_pattern7, spacy_analysis.intro_pattern8, 
+                                        spacy_analysis.intro_pattern9, spacy_analysis.intro_pattern10, spacy_analysis.intro_pattern11)
 
     openedcsv = spacy_analysis.open_dr_words_csv(filename_dr + '.csv')
     fullstr = spacy_analysis.convert_list_to_str(openedcsv)
@@ -147,3 +149,6 @@ def get_pdf():
     response.headers['Content-Disposition'] = 'attachment; filename=convoreport.pdf'
 
     return response
+
+
+

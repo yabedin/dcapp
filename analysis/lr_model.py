@@ -10,7 +10,7 @@ import pickle
 import json
 import requests
 
-# Code adapted from Coursera 
+# Code adapted from Coursera: https://www.coursera.org/learn/classification-vector-spaces-in-nlp
 
 def add_to_list(filepath):
     '''
@@ -148,11 +148,11 @@ def word_freq(train_x, train_y):
     freqs: dict
         A dictionary mapping each (word, label) pair to its frequency
     """
-    # Convert np array to list since zip needs an iterable.
-    # The squeeze is necessary or the list ends up with one element.
+    
+    # Convert np array to list.
     labelslist = np.squeeze(train_y).tolist()
 
-    # Start with an empty dictionary and populate it by looping over words.
+    # Start with an empty dictionary and populate by looping over words.
     freqs = {}
     
     for y, word in zip(labelslist, train_x):
