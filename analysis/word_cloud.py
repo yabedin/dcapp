@@ -10,11 +10,6 @@ from nltk.corpus import stopwords
 import io
 import base64
 
-
-# nltk.download('stopwords')
-
-# Where is this code from? 
-
 def generate_wordcloud(csv_path, dr_label):
     df = pd.read_csv(csv_path)
 

@@ -404,7 +404,7 @@ def test_logistic_regression(test_x, test_y, freqs, theta):
     y_hat = []
     
     for word in test_x:
-        # get the label prediction for the tweet
+        # get the label prediction for the words
         y_pred = predict_conversation(word, freqs, theta)
         
         if y_pred > 0.5:
